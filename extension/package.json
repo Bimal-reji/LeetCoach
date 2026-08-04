@@ -1,0 +1,35 @@
+{
+  "name": "leetcoach-extension",
+  "private": true,
+  "version": "1.0.0",
+  "description": "LeetCoach AI — Chrome extension (MV3) with side panel, content script and background service worker",
+  "type": "module",
+  "scripts": {
+    "build": "vite build && node scripts/build-scripts.mjs",
+    "build:scripts": "node scripts/build-scripts.mjs",
+    "watch": "node scripts/build-scripts.mjs --watch",
+    "dev": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "icons": "python scripts/generate-icons.py"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.268",
+    "@types/node": "^20.19.43",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "esbuild": "^0.21.5",
+    "jsdom": "^29.1.1",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.6",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0"
+  }
+}

@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-base-950 text-slate-100;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 58, 237, 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 90% 110%, rgba(56, 189, 248, 0.06), transparent);
+    background-attachment: fixed;
+  }
+  ::selection {
+    @apply bg-brand-500/40;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-base-600/60 bg-base-850/80 p-5 shadow-card backdrop-blur-sm;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-500 hover:shadow-glow active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn border border-base-600 bg-base-800 text-slate-200 hover:border-brand-400/60 hover:text-white;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-lg px-2 py-0.5 text-xs font-medium;
+  }
+  .input {
+    @apply w-full rounded-xl border border-base-600 bg-base-800 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-brand-400 focus:outline-none focus:ring-1 focus:ring-brand-400;
+  }
+  .skeleton {
+    @apply rounded-lg bg-base-700/60;
+    background-image: linear-gradient(90deg, rgba(255,255,255,0) 0, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0) 80%);
+    background-size: 400px 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+  .page-title {
+    @apply text-2xl font-extrabold tracking-tight text-white;
+  }
+  .page-sub {
+    @apply mt-1 text-sm text-slate-400;
+  }
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-base-600;
+}
