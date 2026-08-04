@@ -55,6 +55,66 @@ extension **Options page** (or edit `extension/src/shared/constants.ts`), then
 rebuild. The backend must include your extension origin in `CORS_ORIGINS`
 (`chrome-extension://<your-id>`).
 
+## 6. Railway (all-in-one) — recommended
+
+Both the API and the dashboard can live on one Railway project. Config-as-code
+lives in `railway.toml` (backend); the dashboard is a Dockerfile deploy.
+
+### 6a. Backend service
+
+1. Railway → **New Project** → **Deploy from GitHub repo** → pick
+   `Bimal-reji/LeetCoach`.
+2. Railway auto-detects `railway.toml` at the repo root (backend Dockerfile +
+   `/api/v1/health` healthcheck).
+3. **Variables** tab — set:
+
+   | Variable | Value |
+   |----------|-------|
+   | `DATABASE_URL` | `postgresql+asyncpg://…` (see Neon below) |
+   | `ENVIRONMENT` | `production` |
+   | `CORS_ORIGINS` | `https://<your-dashboard>.up.railway.app` |
+   | `GROQ_API_KEY` | your Groq key (console.groq.com) |
+   | `RAG_ENABLED` | `false` (knowledge base is gitignored; keeps logs clean) |
+   | `LOG_LEVEL` | `INFO` |
+
+   > `PORT` is injected automatically — `Dockerfile.backend` binds to it
+   > (`${PORT:-8000}`).
+
+### 6b. Neon Postgres
+
+1. neon.tech → **New Project** (region closest to you) → wait for provisioning.
+2. Dashboard → **Connection string** → copy the **Pooled** URL. Neon returns
+   `postgresql://user:pass@…` — add `+asyncpg` so SQLAlchemy's async driver
+   works: `postgresql+asyncpg://user:pass@…`. Put that in `DATABASE_URL`.
+3. Tables + seed data are created automatically on first boot (`init_db`), so
+   no manual migration step is required.
+
+### 6c. Dashboard service
+
+1. Same project → **New Service** → **Deploy from GitHub repo** → same repo.
+2. **Service settings → Deploy**: build method **Dockerfile**, root directory
+   `.`, Dockerfile path `docker/Dockerfile.frontend`.
+3. **Build args / variables**: `VITE_API_URL=https://<your-backend>.up.railway.app/api/v1`
+   and `NGINX_CONF=nginx.railway.conf`.
+
+   > `nginx.railway.conf` listens on Railway's `$PORT`, serves the SPA with
+   > client-side route fallback, and does **not** proxy `/api` (the dashboard
+   > talks to the backend directly via `VITE_API_URL`).
+4. Add `https://<your-dashboard>.up.railway.app` to the backend's `CORS_ORIGINS`
+   if you set the variable before deploying.
+
+### 6d. Point the extension at the deployed API
+
+Extension **Options page → Backend URL** → `https://<your-backend>.up.railway.app/api/v1`,
+and add `chrome-extension://<your-id>` to the backend's `CORS_ORIGINS`.
+
+### 6e. Free-tier notes
+
+- Railway gives a limited free monthly allowance (billing: usage-based, starts
+  at $0 — watch the usage meter for sleep/serving limits).
+- Neon free tier gives 0.5 GB storage + 190 compute hours/month.
+- Groq's free tier is generous (rate-limited) — plenty for personal use.
+
 ## Production checklist
 
 - [ ] `ENVIRONMENT=production` (enables strict CORS, disables demo device)
