@@ -1,4 +1,4 @@
-# API
+# API.
 
 - **[openapi.json](./openapi.json)** — machine-readable OpenAPI 3.1 spec
   (30 endpoints), generated directly from the running FastAPI app.
