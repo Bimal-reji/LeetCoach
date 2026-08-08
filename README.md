@@ -1,6 +1,6 @@
 # LeetCoach AI 🤖
 
-**Your AI coding mentor for LeetCode — guidance, not spoilers.**
+**Your AI coding mentor for LeetCode — guidance, not spoilers.*
 
 LeetCoach is a full-stack, production-ready "GitHub Copilot for DSA" that lives,
 inside LeetCode. It detects the problem you're working on, coaches you with a
