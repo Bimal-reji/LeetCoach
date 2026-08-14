@@ -6,7 +6,7 @@ LeetCoach is a full-stack, production-ready "GitHub Copilot for DSA" that lives,
 inside LeetCode. It detects the problem you're working on, coaches you with a
 progressive hint ladder, detects the algorithmic pattern, analyzes complexity,
 debugs failures, reviews your code, and tracks your revision — **without
-revealing the solution until you ask for it**.
+revealing the solution until you ask for it**..
 
 > Built with Manifest V3 Chrome Extensions, React, TypeScript, Tailwind, Vite,
 > FastAPI, SQLAlchemy, and Groq (with a fully offline mock-AI mode).
