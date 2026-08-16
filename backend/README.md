@@ -3,7 +3,7 @@
 FastAPI + SQLAlchemy (async) + optional Groq/RAG. Runs fully offline with a
 mock AI provider when no `GROQ_API_KEY` is set.
 
-## Run
+## Run.
 
 ```bash
 python -m pip install -r requirements.txt -r requirements-dev.txt
