@@ -1,4 +1,4 @@
-# LeetCoach AI
+# LeetCoach AI.
 
 **Your AI coding mentor for LeetCode — guidance, not spoilers.*
 
